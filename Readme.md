@@ -13,6 +13,18 @@ Options:
 - URL: [localhost:3001/mcp](http://localhost:3001/mcp)
 - Connection Type: Via Proxy
 
+## Custom Attributes
+Some attributes commonly used in requirements engineering such as Functional / Non-Functional
+requirements are an afterthought in Doorstop and have to be added manually by the user of the
+framework. Here is the list of attributes that where extended by this MCP server. They are
+automatically added to every document and when creating an item they can be populated.
+
+| Attribute       | Examples                                                    |
+| --------------- | ----------------------------------------------------------- |
+| `type`          | Functional, Non-Functional or Constraint                    |
+| `review-method` | Review by Design, Test, Inspection, Analysis, Demonstration |
+
+
 ## Implementation Status
 - [ ] ~~create: create a new document directory~~
 - [ ] ~~delete: delete a document directory~~

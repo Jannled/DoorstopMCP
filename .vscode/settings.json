@@ -36,13 +36,15 @@
 
     // Dictionary for code spell
     "cSpell.words": [
-        "Debugpy",
-        "fastmcp",
-        "Jannled",
-        "modelcontextprotocol",
-        "pycache",
-        "streamable",
-        "unreviewed",
-        "venv"
-    ]
+		"attribs",
+		"Debugpy",
+		"fastmcp",
+		"itemformat",
+		"Jannled",
+		"modelcontextprotocol",
+		"pycache",
+		"streamable",
+		"unreviewed",
+		"venv"
+	]
 }

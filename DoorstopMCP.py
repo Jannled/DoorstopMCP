@@ -1,9 +1,10 @@
 import logging
-from typing import cast
 
-import doorstop
-from doorstop import Document, DoorstopError, Tree
+import doorstop # type: ignore
+from doorstop import Document, Item, DoorstopError # type: ignore
 from mcp.server.fastmcp import FastMCP
+
+from utils import CUSTOM_ATTRIB_TYPE, CUSTOM_ATTRIB_VERIFICATION_METHOD, add_custom_attribs, get_tree
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -25,52 +26,81 @@ def get_doorstop_version():
     return doorstop.__version__
 
 
-@mcp.resource('doorstop://list_documents')
-def list_documents() -> list[Tree]:
+@mcp.resource('doorstop://documents')
+def list_documents() -> str:
     """
     List all defined documents
     
     :return: A list of documents
     """
 
-    tree = get_tree()
-    return cast(list[Tree], tree.documents)
+    tree = get_tree(doorstop_root)
+    return tree.draw(encoding='UTF-8', html_links=False)
 
 
 @mcp.resource('doorstop://find_document/{prefix}')
 def find_document(prefix: str) -> Document:
     """
-    Docstring for find_document
+    Find a Folder by Short Prefix (e.g. REQ, LLR, TST)
     
     :param prefix: Description
     """
 
-    tree = get_tree()
+    tree = get_tree(doorstop_root)
     document = tree.find_document(prefix)
 
     return document
 
 
 @mcp.tool()
-def create_item(prefix: str, text: str, header: str|None):
-    tree = get_tree()
+def create_item(
+        prefix: str, 
+        text: str, 
+        req_type: str|None = None,
+        verification_method: str|None = None,
+        header: str|None = None
+    ):
+    """
+    Create an item like a Requirement, Low Level Requirement or Test
+    
+    :param prefix: The item prefix to use e.g. REQ, LLR, TST etc.
+    :param text: The actual requirement like "The system **shall** do something"
+    :param req_type: The Type of the Requirement. Functional, Non-Functional or Constraint
+    :param verification_method: E.g. Review by Design, Test, Inspection, Analysis, Demonstration etc.
+    :param header: A short title displayed when browsing all items
+    """
+
+    # Create a new Item and add Title and Text
+    tree = get_tree(doorstop_root)
     item = tree.add_item(value=prefix)
     item.header = header
     item.text = text
+
+    # Type and Verification method need to be added as custom attributes
+    item.set(CUSTOM_ATTRIB_TYPE, req_type)
+    item.set(CUSTOM_ATTRIB_VERIFICATION_METHOD, verification_method)
+
+    # Flush the data to disk
     item.save()
 
 
-def get_tree():
-    tree = doorstop.build(root=doorstop_root)
-    return tree
+@mcp.resource('doorstop://items/{prefix}')
+def list_items(prefix: str):
+    """
+    Docstring for list_items
+    
+    :param prefix: Description
+    :return: Description
+    """
+    document: Document = find_document(prefix)
+    return [str(item) for item in document.items]
 
 
 # Run with streamable HTTP transport
 if __name__ == "__main__":
-
     try:
         # Dry run to check if Doorstop dir is healthy
-        get_tree()
+        add_custom_attribs(get_tree(doorstop_root))
 
         # Start the MCP Server
         mcp.run(transport="streamable-http")
