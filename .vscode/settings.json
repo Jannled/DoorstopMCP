@@ -1,4 +1,40 @@
 {
+    // Editor formatting
+    "editor.tabSize": 4,
+    "editor.insertSpaces": false,
+    "editor.detectIndentation": true,
+
+	// Pylance / Pyright
+	"python.analysis.typeCheckingMode": "strict",
+	"python.analysis.diagnosticMode": "workspace",
+	"python.analysis.diagnosticSeverityOverrides": {
+		"reportUnusedVariable": "information",
+		"reportUnnecessaryIsInstance": "warning",
+		"reportUntypedFunctionDecorator": "warning",
+		"reportUnknownMemberType": "warning",
+		"reportUnusedImport": "warning",
+		"reportUnusedFunction": "warning",
+		"reportUnusedClass": "warning",
+		"reportUnnecessaryCast": "information"
+	},
+
+    // Display formatting aid
+	"editor.rulers": [90, 120],
+	"editor.wordWrapColumn": 120,
+
+	"[git-commit]": {
+		"editor.rulers": [50]
+	},
+
+	"[markdown]": {
+		"editor.rulers": [72, 94, 120], // Pandoc wraps at 72 internally by default, Obsidian at 94 in Code Blocks
+		"editor.wordWrap": "bounded",
+		"editor.wordWrapColumn": 120
+	},
+
+	"ruff.lineLength": 90, // 90ish, same as the first rule in the editor
+
+    // Dictionary for code spell
     "cSpell.words": [
         "Debugpy",
         "fastmcp",
@@ -6,6 +42,7 @@
         "modelcontextprotocol",
         "pycache",
         "streamable",
+        "unreviewed",
         "venv"
     ]
 }

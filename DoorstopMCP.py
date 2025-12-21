@@ -8,7 +8,7 @@ from mcp.server.fastmcp import FastMCP
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-doorstop_root = 'docs'
+doorstop_root = 'test'
 
 mcp = FastMCP(
     'DoorstopMCP',
@@ -34,7 +34,7 @@ def list_documents() -> list[Tree]:
     """
 
     tree = get_tree()
-    return cast(Tree, tree.documents)
+    return cast(list[Tree], tree.documents)
 
 
 @mcp.resource('doorstop://find_document/{prefix}')
@@ -49,6 +49,15 @@ def find_document(prefix: str) -> Document:
     document = tree.find_document(prefix)
 
     return document
+
+
+@mcp.tool()
+def create_item(prefix: str, text: str, header: str|None):
+    tree = get_tree()
+    item = tree.add_item(value=prefix)
+    item.header = header
+    item.text = text
+    item.save()
 
 
 def get_tree():
