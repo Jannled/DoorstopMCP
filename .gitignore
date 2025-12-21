@@ -1,0 +1,19 @@
+# OS specific files
+Thumbs.db
+.DS_Store
+._*
+
+# --- Don't track Python cache & virtual environments
+__pycache__/
+*.pyc
+env/
+venv/
+.venv/
+
+# --- Debugpy logs, WinMerge Backups etc.
+*.log
+*.bak
+*.hex
+
+# --- Skip the Doorstop working dir
+test/

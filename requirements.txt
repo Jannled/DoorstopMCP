@@ -1,0 +1,5 @@
+# Requirements Engineering Framework
+doorstop
+
+# Model Context Protocol
+mcp[cli]
