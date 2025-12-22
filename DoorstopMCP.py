@@ -2,7 +2,7 @@ import logging
 
 import doorstop # type: ignore
 from doorstop import Document, DoorstopError # type: ignore
-from fastmcp import FastMCP
+from mcp.server.fastmcp import FastMCP
 
 from utils import CUSTOM_ATTRIB_TYPE, CUSTOM_ATTRIB_VERIFICATION_METHOD, add_custom_attribs, get_tree
 
@@ -39,7 +39,7 @@ def list_documents() -> str:
 
 
 @mcp.resource('doorstop://find_document/{prefix}')
-def find_document(prefix: str) -> Document:
+def find_document(prefix: str) -> dict:
     """
     Find a Folder by Short Prefix (e.g. REQ, LLR, TST)
     
@@ -49,7 +49,13 @@ def find_document(prefix: str) -> Document:
     tree = get_tree(doorstop_root)
     document = tree.find_document(prefix)
 
-    return document
+    # Return a serializable dictionary instead of the raw Document object
+    return {
+        "prefix": document.prefix,
+        "path": document.path,
+        "sep": document.sep,
+        "digits": document.digits,
+    }
 
 
 @mcp.tool()
@@ -87,15 +93,30 @@ def create_item(
 @mcp.resource('doorstop://items/{prefix}')
 def list_items(prefix: str):
     """
-    Docstring for list_items
+    List all items in a document with details
     
-    :param prefix: Description
-    :return: Description
+    :param prefix: The document prefix (e.g. REQ, TST)
+    :return: List of item dictionaries
     """
     tree = get_tree(doorstop_root)
     document = tree.find_document(prefix)
-    
-    return [str(item) for item in document.items]
+
+    items = []
+    for item in document.items:
+        item_data = {
+            "uid": str(item),
+            "level": str(item.level),
+            "header": item.header,
+            "text": item.text,
+            "normative": item.normative,
+            "attributes": {
+                "type": item.get(CUSTOM_ATTRIB_TYPE),
+                "verification_method": item.get(CUSTOM_ATTRIB_VERIFICATION_METHOD)
+            }
+        }
+        items.append(item_data)
+            
+    return items
 
 
 # Run with streamable HTTP transport
