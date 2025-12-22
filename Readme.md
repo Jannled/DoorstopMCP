@@ -35,6 +35,16 @@ Options:
 - URL: [localhost:3001/mcp](http://localhost:3001/mcp)
 - Connection Type: Via Proxy
 
+## Vibe CLI Configuration
+To use this MCP server with the Vibe CLI, add the following to your configuration:
+
+```toml
+[[mcp_servers]]
+name = "doorstop"
+transport = "streamable-http"
+url = "http://localhost:3001/mcp"
+```
+
 ## Custom Attributes
 Some attributes commonly used in requirements engineering such as Functional / Non-Functional
 requirements are an afterthought in Doorstop and have to be 
