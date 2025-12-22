@@ -2,7 +2,7 @@ import logging
 
 import doorstop # type: ignore
 from doorstop import Document, DoorstopError # type: ignore
-from FastMCP import FastMCP
+from fastmcp import FastMCP
 
 from utils import CUSTOM_ATTRIB_TYPE, CUSTOM_ATTRIB_VERIFICATION_METHOD, add_custom_attribs, get_tree
 
