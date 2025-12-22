@@ -2,11 +2,11 @@ import logging
 
 import doorstop # type: ignore
 from doorstop import Document, DoorstopError # type: ignore
-from mcp.server.fastmcp import FastMCP
+from fastmcp import FastMCP
 
 from utils import CUSTOM_ATTRIB_TYPE, CUSTOM_ATTRIB_VERIFICATION_METHOD, add_custom_attribs, get_tree
 
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
 doorstop_root = ''
@@ -14,7 +14,7 @@ doorstop_root = ''
 mcp = FastMCP(
     'DoorstopMCP',
     json_response=True,
-    debug=True,
+    #debug=True,
     host='0.0.0.0',
     port=3001
 )
@@ -92,7 +92,9 @@ def list_items(prefix: str):
     :param prefix: Description
     :return: Description
     """
-    document: Document = find_document(prefix)
+    tree = get_tree(doorstop_root)
+    document = tree.find_document(prefix)
+    
     return [str(item) for item in document.items]
 
 

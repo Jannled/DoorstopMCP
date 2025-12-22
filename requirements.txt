@@ -2,4 +2,4 @@
 doorstop
 
 # Model Context Protocol
-mcp[cli]
+fastmcp
