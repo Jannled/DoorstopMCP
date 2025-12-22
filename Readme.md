@@ -1,6 +1,28 @@
 # Doorstop MCP
 Quick and dirty implementation of a [MCP Server](https://github.com/modelcontextprotocol/python-sdk) for the Python [Doorstop framework](https://github.com/doorstop-dev/doorstop).
 
+## Quickstart
+> [!NOTE]  
+> This tool is not yet ready for production use, as there is no user authentication. 
+> Please only use the MCP server in a trusted network.
+
+### With Docker
+```bash
+docker compose up --force-recreate
+```
+
+### With VS Code
+```bash
+mkdir reqs
+cd reqs
+git init
+doorstop create REQ ./reqs/req
+doorstop create LLR ./reqs/llr --parent REQ
+doorstop create TST ./reqs/tests --parent REQ
+```
+
+Then in the Run and Debug (Ctrl+Shift+D) pane start the _Python Debugger: Module_ launch target.
+
 ## Testing the API
 You can explore the MCP by using the following web GUI:
 
