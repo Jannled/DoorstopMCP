@@ -6,7 +6,7 @@ from mcp.server.fastmcp import FastMCP
 
 from utils import CUSTOM_ATTRIB_TYPE, CUSTOM_ATTRIB_VERIFICATION_METHOD, add_custom_attribs, get_tree
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
 doorstop_root = ''
