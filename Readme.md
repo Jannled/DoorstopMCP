@@ -15,9 +15,11 @@ Options:
 
 ## Custom Attributes
 Some attributes commonly used in requirements engineering such as Functional / Non-Functional
-requirements are an afterthought in Doorstop and have to be added manually by the user of the
-framework. Here is the list of attributes that where extended by this MCP server. They are
-automatically added to every document and when creating an item they can be populated.
+requirements are an afterthought in Doorstop and have to be 
+[added manually](https://doorstop.readthedocs.io/en/latest/reference/item.html#extended-item-attributes)
+by the user of the framework. Here is the list of attributes that where extended by this
+MCP server. They are automatically added to every document and when creating an item they can
+be populated.
 
 | Attribute       | Examples                                                    |
 | --------------- | ----------------------------------------------------------- |

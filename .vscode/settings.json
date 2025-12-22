@@ -43,8 +43,10 @@
 		"Jannled",
 		"modelcontextprotocol",
 		"pycache",
+		"reqs",
 		"streamable",
 		"unreviewed",
-		"venv"
+		"venv",
+		"Yeet"
 	]
 }

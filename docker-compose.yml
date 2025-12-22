@@ -1,0 +1,29 @@
+name: doorstop-mcp
+
+volumes:
+  doorstop_data:
+
+services:
+  doorstop-mcp-server:
+    image: doorstop-mcp
+    pull_policy: build
+    build: .
+    restart: unless-stopped
+
+    ports:
+      - "3001:3001"
+
+    volumes:
+      - doorstop_data:/usr/src/doorstop/reqs
+
+    deploy:
+      # prevent malfunction of this container from affecting the host
+      resources:  
+        limits:
+          cpus: '2'
+          memory: 4G
+          pids: 48
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 3
