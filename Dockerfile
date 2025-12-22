@@ -19,6 +19,7 @@ RUN groupadd -r door && useradd -r -g door door
 
 # Change workdir to folder where doorstop will be installed (affects COPY, RUN etc.)
 WORKDIR /usr/src/doorstop
+RUN git config --global --add safe.directory /usr/src/doorstop
 
 # Install all Python libs that are required (installing under the root user, since the other user has no home)
 COPY requirements.txt .
