@@ -19,14 +19,14 @@ mcp = FastMCP(
     port=3001
 )
 
-@mcp.tool('doorstop://version')
+@mcp.tool()
 def get_doorstop_version():
     """Get the version of the underlying Doorstop Framework"""
 
     return doorstop.__version__
 
 
-@mcp.tool('doorstop://documents')
+@mcp.tool()
 def list_documents() -> str:
     """
     List all defined documents
@@ -38,7 +38,7 @@ def list_documents() -> str:
     return tree.draw(encoding='UTF-8', html_links=False)
 
 
-@mcp.tool('doorstop://find_document/{prefix}')
+@mcp.tool()
 def find_document(prefix: str) -> dict:
     """
     Find a Folder by Short Prefix (e.g. REQ, LLR, TST)
@@ -90,7 +90,7 @@ def create_item(
     item.save()
 
 
-@mcp.tool('doorstop://items/{prefix}')
+@mcp.tool()
 def list_items(prefix: str):
     """
     List all items in a document with details
