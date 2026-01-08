@@ -37,11 +37,13 @@
     // Dictionary for code spell
     "cSpell.words": [
 		"attribs",
+		"cpus",
 		"Debugpy",
 		"fastmcp",
 		"itemformat",
 		"Jannled",
 		"modelcontextprotocol",
+		"pids",
 		"pycache",
 		"reqs",
 		"streamable",

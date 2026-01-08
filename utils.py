@@ -2,7 +2,7 @@ from typing import cast
 import doorstop # type: ignore
 from doorstop import Document, Tree # type: ignore
 
-
+# Keys of the custom attributes added to the requirement yml files
 CUSTOM_ATTRIB_TYPE = 'type'
 CUSTOM_ATTRIB_VERIFICATION_METHOD = 'verification-method'
 CUSTOM_ATTRIBS = [CUSTOM_ATTRIB_TYPE, CUSTOM_ATTRIB_VERIFICATION_METHOD]

@@ -31,6 +31,7 @@ USER door
 
 # Copy the MCP code
 COPY . .
+COPY --chmod=0755 entrypoint.sh .
 RUN mkdir reqs && cd reqs && git init
 RUN doorstop create REQ ./reqs/req
 RUN doorstop create LLR ./reqs/llr --parent REQ
@@ -40,6 +41,7 @@ VOLUME [ "/usr/src/doorstop/reqs" ]
 
 # Exposes the port that FastMCP is listening to
 EXPOSE 3001
+EXPOSE 7867
 
 # Run the FastMCP server when the container launches
-CMD ["python", "-m", "DoorstopMCP"]
+CMD ["./entrypoint.sh"]

@@ -1,6 +1,14 @@
 # Doorstop MCP
 Quick and dirty implementation of a [MCP Server](https://github.com/modelcontextprotocol/python-sdk) for the Python [Doorstop framework](https://github.com/doorstop-dev/doorstop).
 
+
+| Port             | Description                                                              |
+| ---------------- | ------------------------------------------------------------------------ |
+| 3001             | The DoorstopMCP server                                                   |
+| 7867             | A tweaked version of the doorstop-server that will update on page reload |
+| 6274, 6277, 3002 | Port of MCP Explorer when Docker was started with `--profile inspector`  |
+
+
 ## Quickstart
 > [!NOTE]  
 > This tool is not yet ready for production use, as there is no user authentication. 
@@ -8,14 +16,21 @@ Quick and dirty implementation of a [MCP Server](https://github.com/modelcontext
 
 ### With Docker
 ```bash
+# Standard
 docker compose up --force-recreate
+
+# With MCP Explorer. Check the console for the link to the local page
+docker compose up --force-recreate --profile inspector
 ```
 
 ### With VS Code
 ```bash
+# Create the (local) repo where the requirements are tracked
 mkdir reqs
 cd reqs
 git init
+
+# Create all documents you need, e.g.
 doorstop create REQ ./reqs/req
 doorstop create LLR ./reqs/llr --parent REQ
 doorstop create TST ./reqs/tests --parent REQ
@@ -67,6 +82,37 @@ be populated.
 | `type`          | Functional, Non-Functional or Constraint                    |
 | `review-method` | Review by Design, Test, Inspection, Analysis, Demonstration |
 
+An example of how they are added to every .doorstop.yml file:
+
+```yml
+# [...]
+attributes:
+  reviewed:
+    - type
+    - verification-method
+```
+
+## Undocumented attributes for html export
+Also currently lacking from the documentation are the attributes that tweak some fields in
+the html exported version. See the following example from the [reqs of the doorstop
+project](https://github.com/doorstop-dev/doorstop/blob/develop/reqs/.doorstop.yml):
+
+```yml
+settings:
+  digits: 3
+  prefix: REQ
+  sep: ''
+attributes:
+  defaults:
+    doc:
+      name: 'Requirements'
+      title: 'Requirements for _Doorstop_'
+      ref: 'REQ-DS-2024'
+      by: 'Wfg'
+      major: '1'
+      minor: 'A'
+      copyright: 'Doorstop'
+```
 
 ## Implementation Status
 - [ ] ~~create: create a new document directory~~

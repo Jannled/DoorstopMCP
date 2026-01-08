@@ -4,7 +4,7 @@ volumes:
   doorstop_data:
 
 services:
-  doorstop-mcp-server:
+  server:
     image: doorstop-mcp
     pull_policy: build
     build: .
@@ -12,6 +12,7 @@ services:
 
     ports:
       - "3001:3001"
+      - "7867:7867"
 
     volumes:
       - doorstop_data:/usr/src/doorstop/reqs
@@ -27,3 +28,19 @@ services:
         condition: on-failure
         delay: 10s
         max_attempts: 3
+
+  inspector:
+    image: ghcr.io/modelcontextprotocol/inspector:latest
+    ports:
+      - 6274:6274
+      - 6277:6277
+      - 3002:3001
+    environment:
+      - HOST=0.0.0.0
+      - MCP_AUTO_OPEN_ENABLED=false
+      - MCP_PROXY_FULL_ADDRESS=http://inspector:3002/
+      - ALLOWED_ORIGINS=http://inspector:6274,http://127.0.0.1:6274
+    profiles:
+      - inspector
+
+  # To connect to the MCP server, fill http://server:3001/mcp in the URL field

@@ -1,7 +1,8 @@
 import logging
+from typing import Any
 
 import doorstop # type: ignore
-from doorstop import Document, DoorstopError # type: ignore
+from doorstop import DoorstopError # type: ignore
 from fastmcp import FastMCP
 
 from utils import CUSTOM_ATTRIB_TYPE, CUSTOM_ATTRIB_VERIFICATION_METHOD, add_custom_attribs, get_tree
@@ -39,7 +40,7 @@ def list_documents() -> str:
 
 
 @mcp.tool()
-def find_document(prefix: str) -> dict:
+def find_document(prefix: str) -> dict[str, str]:
     """
     Find a Folder by Short Prefix (e.g. REQ, LLR, TST)
     
@@ -101,9 +102,9 @@ def list_items(prefix: str):
     tree = get_tree(doorstop_root)
     document = tree.find_document(prefix)
 
-    items = []
+    items: list[dict[str, Any]] = []
     for item in document.items:
-        item_data = {
+        item_data: dict[str, Any] = {
             "uid": str(item),
             "level": str(item.level),
             "header": item.header,

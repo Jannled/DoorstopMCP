@@ -1,5 +1,5 @@
 # Requirements Engineering Framework
-doorstop
+doorstop @ git+https://github.com/Jannled/doorstop.git
 
 # Model Context Protocol
 fastmcp
