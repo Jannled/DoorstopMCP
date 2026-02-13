@@ -1,7 +1,7 @@
 # Using an official Python Debian image as a baseline
 # https://hub.docker.com/_/python
 # https://www.debian.org/releases/
-FROM python:3.13-slim
+FROM python:3.14-slim
 
 # Labels as per:
 # https://github.com/opencontainers/image-spec/blob/main/annotations.md#pre-defined-annotation-keys

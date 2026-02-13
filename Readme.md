@@ -12,7 +12,8 @@ Quick and dirty implementation of a [MCP Server](https://github.com/modelcontext
 ## Quickstart
 > [!WARNING]  
 > This tool is not yet ready for production use, as there is no user authentication. 
-> Please only use the MCP server in a trusted network.
+> Please only use the MCP server in a trusted network. Also race conditions might be
+> possible when the tool is used by multiple users/agents at the same time.
 
 ### With Docker
 ```bash
